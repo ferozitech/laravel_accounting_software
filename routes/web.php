@@ -28,6 +28,8 @@
         Route::get('admin-blogs/', 'ArticleController@index')->name('admin-blogs');
         Route::get('create-blogs/', 'ArticleController@create')->name('create-blogs');
         Route::get('create-page/', 'PagesController@create')->name('create-page');
+        Route::get('create-company/', 'CompanyController@create')->name('create-company');
+        Route::get('companies/', 'CompanyController@index')->name('companies');
         Route::post('submitPage/', 'PagesController@store')->name('submitPage');
         Route::post('updatePage/', 'PagesController@update')->name('updatePage');
         Route::any('destroyPost/{id?}', 'PagesController@destroy')->name('destroyPost');

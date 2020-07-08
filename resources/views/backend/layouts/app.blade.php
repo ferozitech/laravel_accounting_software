@@ -2,14 +2,12 @@
 <html class="fixed sidebar-left-sm">
 <head>
     <meta charset="utf-8" />
-    <title>Recite to Gether</title>
+    <title>Accounts313</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no" />
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Arctern Digital Agency." name="description" />
     <meta content="" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('public/assets/backend/images/favicon.ico') }}" />
-    <!-- App css -->
     <link href="{{ asset('public/assets/backend/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('public/assets/backend/css/jquery-ui.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('public/assets/backend/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
@@ -17,7 +15,7 @@
     <link href="{{ asset('public/assets/backend/css/app.min.css') }}" rel="stylesheet" type="text/css" />
     @yield('style')
 </head>
-<body>
+<body class="@if(Route::currentRouteName() =='dashboard') mm-active active mm-show enlarge-menu @endif">
 @include('backend.includes.navigation')
 @include('backend.includes.header')
 <div class="page-wrapper">

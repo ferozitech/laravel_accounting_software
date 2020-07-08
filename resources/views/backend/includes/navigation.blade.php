@@ -4,10 +4,7 @@
             <span><img src="{{ asset('public/assets/backend/images/logo-sm.png') }}" alt="logo-small" class="logo-sm" /></span>
         </a>
         <nav class="nav">
-            <a href="#Blogs" class="nav-link @if(Route::currentRouteName() =='dashboard') active @endif" data-toggle="tooltip-custom" data-placement="right" title="" data-original-title="Blogs" data-trigger="hover">
-                <i data-feather="pie-chart" class="align-self-center menu-icon icon-dual"></i>
-            </a>
-            <a href="#Posts" class="nav-link" data-toggle="tooltip-custom" data-placement="right" title="" data-original-title="Posts" data-trigger="hover">
+            <a href="#Companies" class="nav-link" data-toggle="tooltip-custom" data-placement="right" title="" data-original-title="Companies" data-trigger="hover">
                 <i data-feather="grid" class="align-self-center menu-icon icon-dual"></i>
             </a>
             <a href="#Cms" class="nav-link" data-toggle="tooltip-custom" data-placement="right" title="" data-original-title="Cms" data-trigger="hover">
@@ -30,18 +27,18 @@
             </a>
         </div>
         <div class="menu-body slimscroll">
-            <div id="Blogs" class="main-icon-menu-pane @if(Route::currentRouteName() =='dashboard') mm-active active @endif">
+            <div id="Blogs" class="main-icon-menu-pane">
                 <div class="title-box"><h6 class="menu-title">Blogs</h6></div>
                 <ul class="nav">
                     <li class="nav-item"><a class="nav-link" href="{{ route('admin-blogs') }}">View</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('create-blogs') }}">Create</a></li>
                 </ul>
             </div>
-            <div id="Posts" class="main-icon-menu-pane">
-                <div class="title-box"><h6 class="menu-title">Posts</h6></div>
+            <div id="Companies" class="main-icon-menu-pane">
+                <div class="title-box"><h6 class="menu-title">Companies</h6></div>
                 <ul class="nav">
-                    <li class="nav-item"><a class="nav-link" href="#">View</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Create</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('companies') }}">View</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('create-company') }}">Create</a></li>
                 </ul>
             </div>
             <div id="Cms" class="main-icon-menu-pane">
