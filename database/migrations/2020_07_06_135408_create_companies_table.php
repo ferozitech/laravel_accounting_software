@@ -24,7 +24,7 @@ class CreateCompaniesTable extends Migration
             $table->string('Title',255)->default('')->nullable();
             $table->string('slug',255)->default('')->nullable();
             $table->string('logo',255)->default('')->nullable();
-            $table->string('email',255)->default('')->nullable();
+            $table->string('email',255)->default('')->unique()->nullable();
             $table->string('phone',255)->default('')->nullable();
             $table->string('website',255)->default('')->nullable();
             $table->dateTime('financial_period_from')->nullable();

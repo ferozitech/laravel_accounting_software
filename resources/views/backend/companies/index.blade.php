@@ -58,32 +58,38 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Title</th>
+                                    <th>Logo</th>
+                                    <th>User</th>
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Website</th>
-                                    <th>Logo</th>
+                                    <th>Created at</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @if(!empty($pages))
+                                @if(!empty($companies))
                                     @php $counter=1; @endphp
-                                    @forelse ($pages as $page)
+                                    @forelse ($companies as $company)
                                         <tr>
                                             <td>{{ $counter }}</td>
-                                            <td>{{ $page->title }}</td>
+                                            <td>{{ $company->Title }}</td>
                                             <td>
-                                                @if(!empty($page->banner_image_name))
-                                                    <img class="thumb-sm" src="{{ asset("public".\Illuminate\Support\Facades\Storage::url($page->banner_image_name)) }}">
+                                                @if(!empty($company->logo))
+                                                    <img class="thumb-sm" src="{{ asset("public".\Illuminate\Support\Facades\Storage::url($company->logo)) }}">
                                                 @endif
                                             </td>
-                                            <td>{{ \Carbon\Carbon::parse($page->created_at)->format('d F, h:m A, Y') }}</td>
+                                            <td>{{ $company->user->name }}</td>
+                                            <td>{{ $company->email }}</td>
+                                            <td>{{ $company->phone }}</td>
+                                            <td>{{ $company->website }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($company->created_at)->format('d F, h:m A, Y') }}</td>
                                             <td name="buttons">
                                                 <div class=" pull-right">
-                                                    <a href="{{ route('edit-page',$page['slug']) }}">
+                                                    <a href="#">
                                                         <button id="bEdit" type="button" class="btn btn-sm btn-soft-success btn-circle mr-2"><i class="dripicons-document-edit"></i></button>
                                                     </a>
-                                                    <a onclick="return confirm(' you want to delete?');" href="{{ route('destroyPost',$page['id']) }}">
+                                                    <a onclick="return confirm(' you want to delete?');" href="#">
                                                         <button id="bElim" type="button" class="btn btn-sm btn-soft-danger btn-circle"><i class="dripicons-trash" aria-hidden="true"></i></button>
                                                     </a>
                                                 </div>

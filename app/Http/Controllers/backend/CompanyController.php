@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Services\CompanyService;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -12,9 +13,15 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $company;
+    public function __construct(CompanyService $company)
+    {
+        $this->company = $company;
+    }
     public function index()
     {
-        return view('backend.companies.index');
+        $companies= $this->company->index();
+        return view('backend.companies.index',compact('companies'));
     }
 
     /**
@@ -35,7 +42,8 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-
+        $data = $request->except(['_method', '_token']);
+        return $this->company->create($data);
     }
 
     /**

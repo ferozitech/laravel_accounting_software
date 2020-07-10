@@ -36,14 +36,9 @@ class User extends Authenticatable
         'updated_at',
     ];
 
-    public function articles()
+    public function company()
     {
-        return $this->hasMany(\App\Models\Article::class);
-    }
-
-    public function comments()
-    {
-        return $this->hasMany(\App\Models\Comment::class);
+        return $this->hasMany(\App\Models\Company::class);
     }
 
 }

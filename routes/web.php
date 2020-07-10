@@ -30,6 +30,7 @@
         Route::get('create-page/', 'PagesController@create')->name('create-page');
         Route::get('create-company/', 'CompanyController@create')->name('create-company');
         Route::get('companies/', 'CompanyController@index')->name('companies');
+        Route::post('storecompanies/', 'CompanyController@store')->name('storecompanies');
         Route::post('submitPage/', 'PagesController@store')->name('submitPage');
         Route::post('updatePage/', 'PagesController@update')->name('updatePage');
         Route::any('destroyPost/{id?}', 'PagesController@destroy')->name('destroyPost');

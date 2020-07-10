@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('username',255)->default('')->nullable();
             $table->string('name',255)->default('')->nullable();
-            $table->string('email',255)->default('')->nullable();
+            $table->string('email',255)->default('')->unique()->nullable();
             $table->string('father_name',255)->default('')->nullable();
             $table->string('dob',255)->default('')->nullable();
             $table->string('CNIC',255)->default('')->nullable();

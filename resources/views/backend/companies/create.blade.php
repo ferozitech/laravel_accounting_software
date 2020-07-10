@@ -35,24 +35,30 @@
                                 <strong>{{ $message }}</strong>
                             </div>
                         @endif
-                        {!! Form::open(array('route' => 'submitPage','id' => 'submitPage','class'=>'form-horizontal','files' => true)) !!}
+                        {!! Form::open(array('route' => 'storecompanies','id' => 'submitPage','class'=>'form-horizontal','files' => true)) !!}
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="Title">Title</label>
-                                    <input type="text" class="form-control" name="title" id="title" placeholder="Title">
+                                    <input type="text" class="form-control" name="title" id="title" placeholder="Title" required="">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="Title">Email</label>
-                                    <input type="email" class="form-control" name="email" id="title" placeholder="email">
+                                    <input type="email" class="form-control" name="email" id="title" placeholder="email" required="">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="Title">phone</label>
-                                    <input type="text" class="form-control" name="phone" id="phone" placeholder="phone">
+                                    <input type="text" class="form-control" name="phone" id="phone" placeholder="phone" required="">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="Title">logo</label>
+                                    <input type="file" class="form-control" name="logo" id="logo" required="">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -64,37 +70,37 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="Title">financial period from</label>
-                                    <input type="text" class="form-control" name="financial_period_from" id="financial_period_from" placeholder="financial period from">
+                                    <input type="date" class="form-control" name="financial_period_from" required="" id="financial_period_from" placeholder="financial period from">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="Title">financial period to</label>
-                                    <input type="text" class="form-control" name="financial_period_to" id="financial_period_to" placeholder="financial period to">
+                                    <input type="date" class="form-control" name="financial_period_to" required="" id="financial_period_to" placeholder="financial period to">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="Title">registration number</label>
-                                    <input type="text" class="form-control" name="registration_number" id="registration_number" placeholder="registration number">
+                                    <input type="text" class="form-control" required="" name="registration_number" id="registration_number" placeholder="registration number">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="Title">date of incorpr</label>
-                                    <input type="text" class="form-control" name="date_of_incorp" id="date_of_incorp" placeholder="date of incorpr">
+                                    <input type="date" class="form-control" name="date_of_incorp" id="date_of_incorp" placeholder="date of incorpr">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="Title">ntn number</label>
-                                    <input type="text" class="form-control" name="ntn_number" id="ntn_number" placeholder="ntn number">
+                                    <input type="text" class="form-control" required="" name="ntn_number" id="ntn_number" placeholder="ntn number">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="Title">salestax number</label>
-                                    <input type="text" class="form-control" name="salestax_number" id="salestax_number" placeholder="salestax number">
+                                    <input type="text" class="form-control" required="" name="salestax_number" id="salestax_number" placeholder="salestax number">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -116,8 +122,27 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <h4 class="mt-0 header-title">User Informations</h4>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="Title">Email Address</label>
+                                    <input type="text" class="form-control" required="" name="user[email]" id="email" placeholder="email">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="Title">Password</label>
+                                    <input type="password" class="form-control" required=""  name="user[password]" id="password" placeholder="password">
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group mt-5 text-right">
-                            <input type="button" class="btn btn-primary text-white" value="Save &amp; Continue">
+                            <input type="submit" class="btn btn-primary text-white" value="Submit">
                         </div>
                         <!--end form-grop-->
                     {{ Form::close() }}
