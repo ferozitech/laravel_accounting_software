@@ -94,7 +94,32 @@ class UserController extends Controller
             return redirect()->back()->with(['error' => $message]);
         }
     }
+    public function forgotpassword(){
+        return view('frontend.user.forgot');
+    }
+    public function forgotPasswordSubmit(Request $request){
+        $data = $request->except(['_method', '_token']);
+        return $this->user->forgotPassword($data);
+    }
+    public function reset_now(Request $request){
 
+        $data = $request->except(['_method', '_token']);
+        return $this->user->reset_now($data);
+
+    }
+    public function reset_password($code=null){
+        if(!empty($code)){
+            $return =$this->user->check_token($code);
+            if($return){
+                $check_token =1;
+            }else{
+                $check_token =0;
+            }
+        }else{
+            $check_token= '';
+        }
+        return view('frontend.user.reset_password',compact('code','check_token'));
+    }
     public function getLogOut()
     {
         Auth::guard('web')->logout();

@@ -23,6 +23,15 @@ class UserService
     {
         return $this->user->getStates($attributes);
     }
+    public function check_token($token){
+
+        return $this->user->check_token($token);
+
+    }
+    public function forgotPassword($attributes)
+    {
+        return $this->user->forgotPassword($attributes);
+    }
     public function getCites($attributes)
     {
         return $this->user->getCites($attributes);

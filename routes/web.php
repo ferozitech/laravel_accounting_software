@@ -15,12 +15,17 @@
 */
 
     Route::get('/', function () {
-        return view('welcome');
+        return view('frontend.welcome');
     });
     Auth::routes();
 //    Route::get('/', ['uses' => 'frontend\SettingsController@homepage','as' => 'home']);
     Route::get('admin/', 'backend\AdminController@login')->name('admin');
     Route::post('SignInAdmin/{var?}', 'backend\AdminController@SignIn')->name('SignInAdmin');
+    Route::get('login/{var?}', 'frontend\UserController@login')->name('login');
+    Route::post('sign_in_user/{var?}', 'frontend\UserController@SignIn')->name('sign_in_user');
+    Route::get('forgot-password/{var?}', 'frontend\UserController@forgotpassword')->name('forgot-password');
+    Route::post('forgotPasswordSubmit', 'frontend\UserController@forgotPasswordSubmit')->name('forgotPasswordSubmit');
+    Route::get('reset-password/{var?}', 'frontend\UserController@reset_password')->name('reset-password');
     Route::any('getLogOut/{var?}', 'backend\AdminController@getLogOut')->name('getLogOut');
 
     Route::group(['prefix'=>'admin','namespace' => 'backend','middleware' => ['auth:admin']],function() {

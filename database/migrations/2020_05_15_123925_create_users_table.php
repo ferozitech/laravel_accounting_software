@@ -17,6 +17,10 @@ class CreateUsersTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+
+            $table->unsignedInteger("companyId")->default(0)->nullable();
+            $table->index(["companyId"], "users_companyId_foreign_idx");
+
             $table->string('username',255)->default('')->nullable();
             $table->string('name',255)->default('')->nullable();
             $table->string('email',255)->default('')->unique()->nullable();
@@ -38,6 +42,11 @@ class CreateUsersTable extends Migration
             $table->string('remember_token',255)->default('')->nullable();
             $table->softDeletes();
             $table->nullableTimestamps();
+
+            $table->foreign('companyId', 'fk_companies_users1_idx')
+                ->references('id')->on('companies')
+                ->onDelete('no action')
+                ->onUpdate('no action');
         });
     }
 

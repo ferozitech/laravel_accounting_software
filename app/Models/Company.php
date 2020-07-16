@@ -13,10 +13,9 @@ class Company extends Eloquent
     use Sluggable;
 
     protected $casts = [
-        'userId' => 'int'
+
     ];
     protected $fillable = [
-        'userId',
         'Title',
         'slug',
         'logo',
@@ -45,9 +44,10 @@ class Company extends Eloquent
             ]
         ];
     }
-    public function user()
+
+    public function users()
     {
-        return $this->belongsTo(\App\Models\User::class,'userId');
+        return $this->hasMany(\App\Models\User::class,'companyId');
     }
 
 }

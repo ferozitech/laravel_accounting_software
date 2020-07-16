@@ -11,6 +11,7 @@ use App\Models\User;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class UserRepository
@@ -108,6 +109,28 @@ class UserRepository
     public function getStates($attributes)
     {
         return State::where("country_id",$attributes['country_id'])->select("name","id")->get()->toArray();
+    }
+    public function check_token($token){
+        return $this->user->where('remember_token',$token)->first();
+    }
+    public function forgotPassword($attributes){
+        if(!empty($attributes)){
+            $remember_token = str_random(12);
+            $user = $this->user->whereemail($attributes['email'])->first();
+            if($user){
+                $user->remember_token = $remember_token;
+                $user->update();
+                Mail::send('frontend.emails.forgot',['remember_token' => $remember_token],function($message) use ($attributes){
+                    $message->from('developer@dev2.ferozitech.com');
+                    $message->to($attributes['email']);
+                    $message->replyTo('developer@dev2.ferozitech.com', 'Accounts313');
+                    $message->subject('Forgot Email Accounts313');
+                });
+                return redirect()->back()->with(['success' => 'Follow the instruction in email to reset your password']);
+            }else{
+                return redirect()->back()->with(['error' => 'We cant find a user with that e-mail address']);
+            }
+        }
     }
     public function getCites($attributes)
     {

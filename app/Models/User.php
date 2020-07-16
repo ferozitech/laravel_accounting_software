@@ -11,25 +11,29 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use SoftDeletes;
-    protected $casts = [];
+    protected $casts = [
+        'companyId' => 'int'
+    ];
     protected $fillable = [
-        'f_name',
-        'l_name',
-        'display_name',
-        'avatar',
-        'avatar_original',
+        'companyId',
+        'username',
+        'name',
         'email',
+        'father_name',
+        'dob',
+        'CNIC',
+        'marital_status',
+        'type',
+        'Address',
         'password',
-        'social_id',
-        'country_id',
-        'state_id',
-        'address',
-        'is_enabled',
-        'registration_completed',
-        'notification_immediately',
-        'notification_total',
-        'notification_request_met',
-        'notification_next_year',
+        'city',
+        'state',
+        'country',
+        'qualification',
+        'designation',
+        'joining_date',
+        'starting_salary',
+        'current_salary',
         'remember_token',
         'deleted_at',
         'created_at',
@@ -38,7 +42,7 @@ class User extends Authenticatable
 
     public function company()
     {
-        return $this->hasMany(\App\Models\Company::class);
+        return $this->belongsTo(\App\Models\Company::class);
     }
 
 }

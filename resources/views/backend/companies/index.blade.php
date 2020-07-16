@@ -59,7 +59,7 @@
                                     <th>Id</th>
                                     <th>Title</th>
                                     <th>Logo</th>
-                                    <th>User</th>
+                                    <th>Users</th>
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Website</th>
@@ -79,7 +79,7 @@
                                                     <img class="thumb-sm" src="{{ asset("public".\Illuminate\Support\Facades\Storage::url($company->logo)) }}">
                                                 @endif
                                             </td>
-                                            <td>{{ $company->user->name }}</td>
+                                            <td>{{ $company->users->count() }}</td>
                                             <td>{{ $company->email }}</td>
                                             <td>{{ $company->phone }}</td>
                                             <td>{{ $company->website }}</td>
