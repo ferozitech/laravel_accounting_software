@@ -28,6 +28,10 @@ class UserService
         return $this->user->check_token($token);
 
     }
+    public function reset_now($data){
+
+        return $this->user->reset_now($data);
+    }
     public function forgotPassword($attributes)
     {
         return $this->user->forgotPassword($attributes);

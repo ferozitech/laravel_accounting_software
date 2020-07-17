@@ -23,51 +23,13 @@ class UserController extends Controller
     {
         $this->user = $user;
     }
-    public function signup(){
 
-        $countries = Country::all();
-        return view('frontend.user.signup',compact('countries'));
-    }
-    public function getStates(Request $request)
-    {
-        $data = $request->except(['_method', '_token']);
-        return $this->user->getStates($data);
-    }
-    public function getCites(Request $request)
-    {
-        $data = $request->except(['_method', '_token']);
-        return $this->user->getCites($data);
-    }
-    public function login(){
-        return view('frontend.user.login');
-    }
+    public function dashboard(){
 
-    public function categorySortings(Request $request){
-
-            dd($request->all());
+        return view('frontend.user.dashboard');
 
     }
-    public function index($slug=null)
-    {
-        if(isset($slug)){
-          $post_detail=$this->user->read($slug);
-          $states = $this->user->getStates(array('country_id'=>$post_detail->gathering_in_country));
-        }else{
-            $post_detail='';
-            $states='';
-        }
-        $countries = Country::all();
-        $posts = $this->user->posts();
-        $participated = $this->user->participated();
-        return view('frontend.user.dashboard',compact('countries','posts','post_detail','states','participated'));
-    }
 
-    public function markComplete(Request $request) {
-
-        $data = $request->except(['_method', '_token']);
-        return $this->user->markComplete($data);
-
-    }
     public function SignIn(Request $request)
     {
         $remember = false;
@@ -94,6 +56,55 @@ class UserController extends Controller
             return redirect()->back()->with(['error' => $message]);
         }
     }
+    public function signup(){
+
+        $countries = Country::all();
+        return view('frontend.user.signup',compact('countries'));
+    }
+    public function getStates(Request $request)
+    {
+        $data = $request->except(['_method', '_token']);
+        return $this->user->getStates($data);
+    }
+    public function getCites(Request $request)
+    {
+        $data = $request->except(['_method', '_token']);
+        return $this->user->getCites($data);
+    }
+    public function login(){
+        return view('frontend.user.login');
+    }
+    public function home(){
+        return view('frontend.welcome');
+    }
+
+    public function categorySortings(Request $request){
+
+            dd($request->all());
+
+    }
+
+    public function index($slug=null)
+    {
+        if(isset($slug)){
+          $post_detail=$this->user->read($slug);
+          $states = $this->user->getStates(array('country_id'=>$post_detail->gathering_in_country));
+        }else{
+            $post_detail='';
+            $states='';
+        }
+        $countries = Country::all();
+        $posts = $this->user->posts();
+        $participated = $this->user->participated();
+        return view('frontend.user.dashboard',compact('countries','posts','post_detail','states','participated'));
+    }
+
+    public function markComplete(Request $request) {
+
+        $data = $request->except(['_method', '_token']);
+        return $this->user->markComplete($data);
+
+    }
     public function forgotpassword(){
         return view('frontend.user.forgot');
     }
@@ -102,10 +113,8 @@ class UserController extends Controller
         return $this->user->forgotPassword($data);
     }
     public function reset_now(Request $request){
-
         $data = $request->except(['_method', '_token']);
         return $this->user->reset_now($data);
-
     }
     public function reset_password($code=null){
         if(!empty($code)){
@@ -164,6 +173,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function logOutUser()
+    {
+        Auth::guard('web')->logout();
+        return redirect()->route('home')->with(['success' => 'You have successfully logged out!']);
+    }
+
     public function edit($id)
     {
         //

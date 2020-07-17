@@ -13,12 +13,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+    Auth::routes();
 
     Route::get('/', function () {
         return view('frontend.welcome');
     });
-    Auth::routes();
-//    Route::get('/', ['uses' => 'frontend\SettingsController@homepage','as' => 'home']);
+    Route::any('home/', array( 'as' => 'home', 'uses' => 'frontend\UserController@home' ));
     Route::get('admin/', 'backend\AdminController@login')->name('admin');
     Route::post('SignInAdmin/{var?}', 'backend\AdminController@SignIn')->name('SignInAdmin');
     Route::get('login/{var?}', 'frontend\UserController@login')->name('login');
@@ -26,7 +26,15 @@
     Route::get('forgot-password/{var?}', 'frontend\UserController@forgotpassword')->name('forgot-password');
     Route::post('forgotPasswordSubmit', 'frontend\UserController@forgotPasswordSubmit')->name('forgotPasswordSubmit');
     Route::get('reset-password/{var?}', 'frontend\UserController@reset_password')->name('reset-password');
+    Route::post('reset_now/{var?}', 'frontend\UserController@reset_now')->name('reset_now');
+    Route::get('logOutUser/{var?}', 'frontend\UserController@logOutUser')->name('logOutUser');
+    Route::post('user_sign_in/{var?}', 'frontend\UserController@SignIn')->name('user_sign_in');
     Route::any('getLogOut/{var?}', 'backend\AdminController@getLogOut')->name('getLogOut');
+
+
+    Route::group(['namespace' => 'frontend','middleware' => ['auth:web']],function() {
+        Route::get('user-dashboard/{var?}', 'UserController@dashboard')->name('user-dashboard');
+    });
 
     Route::group(['prefix'=>'admin','namespace' => 'backend','middleware' => ['auth:admin']],function() {
         Route::get('dashboard/', 'AdminController@dashboard')->name('dashboard');

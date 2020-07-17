@@ -21,6 +21,9 @@ class CreateGroupsTable extends Migration
 
             $table->unsignedInteger("parentId")->default(0)->nullable();
 
+            $table->unsignedInteger("companyId")->default(0)->nullable();
+            $table->index(["companyId"], "groups_companyId_foreign_idx");
+
             $table->string('title',255)->default('')->nullable();
             $table->string('slug',255)->default('')->nullable();
             $table->enum('type',['credit','debit'])->nullable();
@@ -28,6 +31,12 @@ class CreateGroupsTable extends Migration
 
             $table->softDeletes();
             $table->nullableTimestamps();
+
+            $table->foreign('companyId', 'fk_companies_groups1_idx')
+                ->references('id')->on('companies')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
         });
     }
 

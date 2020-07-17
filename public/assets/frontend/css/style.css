@@ -777,10 +777,15 @@ button.btn.btn-dark {
     .customImageUpload {
         text-align: center;
     }
+
     .custom-image-upload input.form-control {
         height: 100%;
         width: 26% !important;
         margin: 0 auto !important;
         right: 0;
         left: 0;
+    }
+}
+.error {
+    color: red;
 }

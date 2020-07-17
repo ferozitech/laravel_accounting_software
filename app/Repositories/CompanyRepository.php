@@ -12,6 +12,7 @@ use App\Models\State;
 use App\Models\User;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -54,6 +55,7 @@ class CompanyRepository
                     'paidup_capital'=>($attributes['paidup_capital']) ? $attributes['paidup_capital'] : '',
                     'share_price'=>($attributes['share_price']) ? $attributes['share_price'] : '',
                 ]);
+                $this->asign_groups_to_company($return->id);
                 if($attributes['user']){
                     try {
                         Mail::send('backend.emails.create_company',['data' => $attributes['user']],function($message) use ($attributes){
@@ -87,6 +89,166 @@ class CompanyRepository
             return redirect()->back()->with(['error' => 'Something went wrong....!']);
         }
     }
+    public function asign_groups_to_company($companyId){
+        $current_date=\Carbon\Carbon::now();
+        $groups=array(
+            array(
+                'parentId'=>1,
+                'companyId'=>$companyId,
+                'title'=>"Capital Accounts",
+                'slug'=>"capital-accounts",
+                'code'=>"11000001",
+                'created_at' => $current_date,
+                'updated_at' => $current_date,
+            ),
+            array(
+                'parentId'=>1,
+                'companyId'=>$companyId,
+                'title'=>"Accummulated Profit/(Loss)",
+                'slug'=>"accummulated-profit-loss",
+                'code'=>"11000002",
+                'created_at' => $current_date,
+                'updated_at' => $current_date,
+            ),
+            array(
+                'parentId'=>2,
+                'companyId'=>$companyId,
+                'title'=>"Trade Payables",
+                'slug'=>"trade-payables",
+                'code'=>"12000001",
+                'created_at' => $current_date,
+                'updated_at' => $current_date,
+            ),
+            array(
+                'parentId'=>4,
+                'companyId'=>$companyId,
+                'title'=>"Trade Receiveables",
+                'slug'=>"trade-receiveables",
+                'code'=>"12100000",
+                'created_at' => $current_date,
+                'updated_at' => $current_date,
+            ),
+            array(
+                'parentId'=>2,
+                'companyId'=>$companyId,
+                'title'=>"Accured and other liabilities",
+                'slug'=>"accured-and-other-liabilities",
+                'code'=>"12000002",
+                'created_at' => $current_date,
+                'updated_at' => $current_date,
+            ),
+            array(
+                'parentId'=>3,
+                'companyId'=>$companyId,
+                'title'=>"Fixed Assets",
+                'slug'=>"fixed-assets",
+                'code'=>"13100001",
+                'created_at' => $current_date,
+                'updated_at' => $current_date,
+            ),
+            array(
+                'parentId'=>4,
+                'companyId'=>$companyId,
+                'title'=>"Loan and Advances",
+                'slug'=>"loan-and-advances",
+                'code'=>"12100001",
+                'created_at' => $current_date,
+                'updated_at' => $current_date,
+            ),
+            array(
+                'parentId'=>5,
+                'companyId'=>$companyId,
+                'title'=>"Loan from Others",
+                'slug'=>"loan-from-others",
+                'code'=>"14310001",
+                'created_at' => $current_date,
+                'updated_at' => $current_date,
+            ),
+            array(
+                'parentId'=>4,
+                'companyId'=>$companyId,
+                'title'=>"Deposits and Pre-Payments",
+                'slug'=>"deposits-and-pre-payments",
+                'code'=>"12100002",
+                'created_at' => $current_date,
+                'updated_at' => $current_date,
+            ),
+            array(
+                'parentId'=>4,
+                'companyId'=>$companyId,
+                'title'=>"Cash and Bank Contra",
+                'slug'=>"cash-and-bank-contra",
+                'code'=>"12100003",
+                'created_at' => $current_date,
+                'updated_at' => $current_date,
+            ),
+            array(
+                'parentId'=>6,
+                'companyId'=>$companyId,
+                'title'=>"Income Accounts",
+                'slug'=>"income-accounts",
+                'code'=>"15000000",
+                'created_at' => $current_date,
+                'updated_at' => $current_date,
+            ),
+            array(
+                'parentId'=>6,
+                'companyId'=>$companyId,
+                'title'=>"Other Income",
+                'slug'=>"oter-income",
+                'code'=>"15000001",
+                'created_at' => $current_date,
+                'updated_at' => $current_date,
+            ),
+            array(
+                'parentId'=>7,
+                'companyId'=>$companyId,
+                'title'=>"Cost Accounts",
+                'slug'=>"cost-accounts",
+                'code'=>"16000000",
+                'created_at' => $current_date,
+                'updated_at' => $current_date,
+            ),
+            array(
+                'parentId'=>8,
+                'companyId'=>$companyId,
+                'title'=>"Operating Expenses",
+                'slug'=>"operating-expenses",
+                'code'=>"17000000",
+                'created_at' => $current_date,
+                'updated_at' => $current_date,
+            ),
+            array(
+                'parentId'=>8,
+                'companyId'=>$companyId,
+                'title'=>"Financial Charges",
+                'slug'=>"financial-charges",
+                'code'=>"17000001",
+                'created_at' => $current_date,
+                'updated_at' => $current_date,
+            ),
+            array(
+                'parentId'=>4,
+                'companyId'=>$companyId,
+                'title'=>"Advance Tax",
+                'slug'=>"advance-tax",
+                'code'=>"12100004",
+                'created_at' => $current_date,
+                'updated_at' => $current_date,
+            ),
+            array(
+                'parentId'=>2,
+                'companyId'=>$companyId,
+                'title'=>"Provision for Taxation",
+                'slug'=>"provision-for-taxation",
+                'code'=>"12000003",
+                'created_at' => $current_date,
+                'updated_at' => $current_date,
+            )
+        );
+        DB::table('groups')->insert($groups);
+    }
+
     public function update($attributes)
     {
 

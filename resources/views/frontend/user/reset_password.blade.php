@@ -53,15 +53,16 @@
                             </div>
                         @endif
                         @if(!empty($check_token))
-                        {!! Form::open(array('route' => 'forgotPasswordSubmit','id' => 'formSubmit','class'=>'form-horizontal auth-form my-4','files' => true)) !!}
-                        <div class="form-group">
-                            <label for="username">Enter new password</label>
-                            <input type="email" name="email" class="form-control" required="" id="username">
-                        </div>
-                        <div class="form-group">
-                            <label for="username">Enter new password again</label>
-                            <input type="email" name="email" class="form-control" required="" id="username">
-                        </div>
+                        {!! Form::open(array('route' => 'reset_now','id' => 'LoginUser','class'=>'form-horizontal auth-form my-4','files' => true)) !!}
+                                <div class="form-group col-md-12">
+                                    <label for="inputlname">Enter New Password<span>*</span></label>
+                                    <input type="password" name="password" class="form-control" id="password" required="">
+                                </div>
+                                <input type="hidden" name="remember_token" value="{{ $code }}">
+                                <div class="form-group col-md-12">
+                                    <label for="inputlname">Confirm New password <span>*</span></label>
+                                    <input type="password" name="cpassword" class="form-control" id="cpassword" required="">
+                                </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary pull-right w-100">Reset Now</button>
                         </div>
@@ -86,5 +87,38 @@
 <!-- Bootstrap core JavaScript -->
 <script src="{{ asset('public/assets/frontend/vendor/jquery/jquery-3.5.1.min.js') }}"></script>
 <script src="{{ asset('public/assets/frontend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+
+<script src="{{ asset('public/assets/frontend/js/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('public/assets/frontend/js/additional-methods.min.js') }}"></script>
+<script type="application/javascript">
+    $("#LoginUser").validate({
+        rules: {
+            "password": {
+                required: true,
+                minlength: 6
+            },"cpassword": {
+                required: true,
+                equalTo : "#password",
+                minlength: 6,
+            }
+        },
+        messages: {
+            "password": {
+                required: "Please, enter an password",
+                password: "Password Must contain 6 characters.",
+            },
+            "cpassword": {
+                required: "Please, enter an password",
+                confirm_password: "Password Must contain 6 characters.",
+                equalTo: "Please enter the same password as above"
+            }
+        },
+        submitHandler: function (form) {
+            return true;
+        }
+    });
+</script>
+
 </body>
 </html>

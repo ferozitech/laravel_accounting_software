@@ -113,6 +113,21 @@ class UserRepository
     public function check_token($token){
         return $this->user->where('remember_token',$token)->first();
     }
+    public function reset_now($data){
+        if(!empty($data['remember_token'])){
+            $check = $this->user->where('remember_token',$data['remember_token'])->first();
+            if(!empty($check)){
+                $check->password =Hash::make($data['password']);
+                $check->remember_token ='';
+                $check->update();
+                return redirect()->route('home')->with(['success' => 'Password reset successfull.']);
+            }else{
+                return redirect()->back()->with(['success' => 'Link expired.']);
+            }
+        }else{
+            return response()->json(['response' => 'Something Went Wrong Please try again....']);
+        }
+    }
     public function forgotPassword($attributes){
         if(!empty($attributes)){
             $remember_token = str_random(12);
@@ -126,7 +141,7 @@ class UserRepository
                     $message->replyTo('developer@dev2.ferozitech.com', 'Accounts313');
                     $message->subject('Forgot Email Accounts313');
                 });
-                return redirect()->back()->with(['success' => 'Follow the instruction in email to reset your password']);
+                return redirect()->route('home')->with(['success' => 'Follow the instruction in email to reset your password']);
             }else{
                 return redirect()->back()->with(['error' => 'We cant find a user with that e-mail address']);
             }

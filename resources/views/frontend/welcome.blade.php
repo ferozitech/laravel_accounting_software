@@ -58,7 +58,7 @@
                                 <strong>{{ $message }}</strong>
                             </div>
                         @endif
-                        {!! Form::open(array('route' => 'sign_in_user','id' => 'formSubmit','class'=>'form-horizontal auth-form my-4','files' => true)) !!}
+                        {!! Form::open(array('route' => 'user_sign_in','id' => 'formSubmit','class'=>'form-horizontal auth-form my-4','files' => true)) !!}
                         <div class="form-group">
                                 <label for="username">Email</label>
                                 <input type="email" name="email" class="form-control" required="" id="username">
