@@ -1,6 +1,6 @@
 <div class="border-right a-sidebar" id="sidebar-wrapper">
     <div class="sidebar-heading">
-        <a href="#">
+        <a href="{{ route('user-dashboard') }}">
             <img src="{{ asset('public/assets/frontend/images/logo.png') }}" alt="Accounts 313">
         </a>
     </div>
@@ -13,8 +13,8 @@
                 <a class="dropdown-item" href="#">Create New</a>
                 <a class="dropdown-item" href="#">Company Profile</a>
                 <a class="dropdown-item" href="#">Vouchers</a>
-                <a class="dropdown-item" href="#">Groups</a>
-                <a class="dropdown-item" href="#">Ledgers</a>
+                <a class="dropdown-item" href="{{ route('create-group') }}">Groups</a>
+                <a class="dropdown-item" href="{{ route('create-ledger') }}">Ledgers</a>
             </div>
         </li>
         <a href="#" class="list-group-item list-group-item-action active">Dashboard</a>

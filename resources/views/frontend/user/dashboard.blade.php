@@ -35,7 +35,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="col-xl-4 col-lg-6 mb-4 dc-listening">
                 <div class="card">
@@ -46,7 +45,7 @@
                                 <p>Last Updated Group 26/03/2020</p>
                             </div>
                             <div class="col">
-                                <a href="#">
+                                <a href="{{ route('create-group') }}">
                                     <i class="fas fa-plus-circle"></i>
                                 </a>
                             </div>
@@ -74,7 +73,9 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <button class="btn btn-default">View Details</button>
+                                <a href="{{ route('groups') }}">
+                                    <button class="btn btn-default">View Details</button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -90,7 +91,7 @@
                                 <p>Period 01/07/2020 - 30/06/2021</p>
                             </div>
                             <div class="col">
-                                <a href="#">
+                                <a href="{{ route('create-ledger') }}">
                                     <i class="fas fa-plus-circle"></i>
                                 </a>
                             </div>
@@ -107,7 +108,9 @@
                         </div>
                         <div class="row">
                             <div class="col">
+                                <a href="{{route('ledgers')}}">
                                 <button class="btn btn-default">View Details</button>
+                                </a>
                             </div>
                         </div>
                     </div>

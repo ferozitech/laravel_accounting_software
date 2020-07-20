@@ -19,6 +19,10 @@ class LedgerService
     {
         return $this->ledger->all();
     }
+    public function parentWithCompanyGroups()
+    {
+        return $this->ledger->parentWithCompanyGroups();
+    }
 
     public function create($attributes)
     {

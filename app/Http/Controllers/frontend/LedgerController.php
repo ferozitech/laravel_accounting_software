@@ -22,7 +22,8 @@ class LedgerController extends Controller
 
     public function index()
     {
-        //
+        $ledgers=$this->ledger->index();
+        return view('frontend.ledger.index',compact('ledgers'));
     }
 
     /**
@@ -32,7 +33,8 @@ class LedgerController extends Controller
      */
     public function create()
     {
-        //
+        $groups=$this->ledger->parentWithCompanyGroups();
+        return view('frontend.ledger.add',compact('groups'));
     }
 
     /**
@@ -43,7 +45,8 @@ class LedgerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->except(['_method', '_token']);
+        return $this->ledger->create($data);
     }
 
     /**

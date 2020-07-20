@@ -21,7 +21,7 @@
     <div class="main-menu-inner">
         <!-- LOGO -->
         <div class="topbar-left">
-            <a href="{{ route('dashboard') }}" class="logo">
+            <a href="   {{ route('dashboard') }}" class="logo">
                 <span><img src="{{ asset('public/assets/backend/images/logo-dark.png') }}" alt="logo-large" class="logo-lg logo-dark" />
                     <img src="{{ asset('public/assets/backend/images/logo.png') }}" alt="logo-large" class="logo-lg logo-light" /></span>
             </a>

@@ -24,6 +24,9 @@ class CreateLedgersTable extends Migration
             $table->unsignedInteger("groupId")->default(0)->nullable();
             $table->index(["groupId"], "ledgers_groupId_foreign_idx");
 
+            $table->unsignedInteger("companyId")->default(0)->nullable();
+            $table->index(["companyId"], "ledgers_companyId_foreign_idx");
+
             $table->text('description')->default('')->nullable();
             $table->string('ref_number',255)->default('')->nullable();
             $table->string('party_ref_number',255)->default('')->nullable();
@@ -35,6 +38,11 @@ class CreateLedgersTable extends Migration
 
             $table->foreign('groupId', 'fk_groups_ledgers1_idx')
                 ->references('id')->on('groups')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreign('companyId', 'fk_companies_ledgers1_idx')
+                ->references('id')->on('companies')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

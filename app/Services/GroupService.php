@@ -15,9 +15,19 @@ class GroupService
     {
         $this->group = $groupRepository ;
     }
+
     public function index()
     {
         return $this->group->all();
+    }
+
+    public function companyGroups()
+    {
+        return $this->group->companyGroups();
+    }
+    public function parentGroups()
+    {
+        return $this->group->parentGroups();
     }
 
     public function create($attributes)
@@ -25,10 +35,12 @@ class GroupService
         return $this->group->create($attributes);
     }
 
-    public function read($id)
+    public function find($id)
     {
         return $this->group->find($id);
     }
+
+
     public function edit($slug)
     {
         return $this->group->edit($slug);
@@ -38,9 +50,14 @@ class GroupService
         return $this->group->getDataFieldById($id);
     }
 
-    public function update($data, $id)
+    public function update($data)
     {
-        return $this->group->update($id, $data);
+        return $this->group->update($data);
+    }
+
+    public function createGroup($data)
+    {
+        return $this->group->createGroup($data);
     }
 
     public function getStates(Request $request)

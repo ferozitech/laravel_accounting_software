@@ -550,7 +550,7 @@ li.mega-menu .dropdown-menu .megaMenuRow a.dropdown-item {
 
 
 input[type="email" i],
-input[type="text" i],
+input[type="text" i],input[type="text" i],
 input[type="password" i] {
     background-color: #FFFFFF !important;
     border: 1px solid #E5E5E5 !important;
@@ -559,6 +559,23 @@ input[type="password" i] {
     height: 50px !important;
     border-radius: 0 !important;
     outline: none;
+}
+select{
+    background-color: #FFFFFF !important;
+    border: 1px solid #E5E5E5 !important;
+    font-size: 16px !important;
+    font-family: 'open_sansregular';
+    height: 50px !important;
+    border-radius: 0 !important;
+    outline: none;
+}
+.footer {
+    border-top: 1px solid #e8ebf3;
+    bottom: 0;
+    padding: 20px;
+    right: 0;
+    left: 0;
+    color: #7081b9;
 }
 textarea {
     background-color: #FFFFFF !important;

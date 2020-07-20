@@ -14,13 +14,22 @@ class GroupController extends Controller
      * @return \Illuminate\Http\Response
      */
     protected $group;
+
     public function __construct(GroupService $group)
     {
         $this->group = $group;
     }
+
     public function index()
     {
-        //
+        $companyGroups=$this->group->companyGroups();
+        return view('frontend.groups.index',compact('companyGroups'));
+    }
+    public function editGroup($id)
+    {
+        $companyGroup=$this->group->find($id);
+        $parentGroups=$this->group->parentGroups();
+        return view('frontend.groups.edit',compact('companyGroup','parentGroups'));
     }
 
     /**
@@ -30,7 +39,8 @@ class GroupController extends Controller
      */
     public function create()
     {
-        //
+        $parentGroups=$this->group->parentGroups();
+        return view('frontend.groups.add',compact('parentGroups'));
     }
 
     /**
@@ -41,7 +51,8 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->except(['_method', '_token']);
+        return $this->group->createGroup($data);
     }
 
     /**
@@ -52,7 +63,7 @@ class GroupController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -73,9 +84,10 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $data = $request->except(['_method', '_token']);
+        return $this->group->update($data);
     }
 
     /**
@@ -86,6 +98,6 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return $this->group->delete($id);
     }
 }

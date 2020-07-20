@@ -49,5 +49,9 @@ class Company extends Eloquent
     {
         return $this->hasMany(\App\Models\User::class,'companyId');
     }
+    public function groups()
+    {
+        return $this->hasMany(\App\Models\Group::class);
+    }
 
 }

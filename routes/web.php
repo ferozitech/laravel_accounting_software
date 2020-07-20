@@ -18,6 +18,7 @@
     Route::get('/', function () {
         return view('frontend.welcome');
     });
+
     Route::any('home/', array( 'as' => 'home', 'uses' => 'frontend\UserController@home' ));
     Route::get('admin/', 'backend\AdminController@login')->name('admin');
     Route::post('SignInAdmin/{var?}', 'backend\AdminController@SignIn')->name('SignInAdmin');
@@ -31,9 +32,17 @@
     Route::post('user_sign_in/{var?}', 'frontend\UserController@SignIn')->name('user_sign_in');
     Route::any('getLogOut/{var?}', 'backend\AdminController@getLogOut')->name('getLogOut');
 
-
     Route::group(['namespace' => 'frontend','middleware' => ['auth:web']],function() {
         Route::get('user-dashboard/{var?}', 'UserController@dashboard')->name('user-dashboard');
+        Route::get('groups/{var?}', 'GroupController@index')->name('groups');
+        Route::get('edit-group/{var?}', 'GroupController@editGroup')->name('edit-group');
+        Route::post('update-group/{var?}', 'GroupController@update')->name('update-group');
+        Route::post('storeGroup/{var?}', 'GroupController@store')->name('storeGroup');
+        Route::get('create-group/{var?}', 'GroupController@create')->name('create-group');
+        Route::get('destroyGroup/{var?}', 'GroupController@destroy')->name('destroyGroup');
+        Route::get('create-ledger/{var?}', 'LedgerController@create')->name('create-ledger');
+        Route::get('ledgers/{var?}', 'LedgerController@index')->name('ledgers');
+        Route::post('storeLedger/{var?}', 'LedgerController@store')->name('storeLedger');
     });
 
     Route::group(['prefix'=>'admin','namespace' => 'backend','middleware' => ['auth:admin']],function() {

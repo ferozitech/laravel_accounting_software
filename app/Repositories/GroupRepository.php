@@ -90,7 +90,41 @@ class GroupRepository
     }
     public function update($attributes)
     {
-
+        if(!empty($attributes)){
+            try {
+                $this->group->whereId($attributes['groupId'])->update([
+                    'parentId'=>($attributes['parentId']) ? : '',
+                    'title'=>($attributes['title']) ? : '',
+                    'type'=>($attributes['type']) ? : null,
+                    'code'=>($attributes['code']) ? : '',
+                ]);
+                return redirect()->back()->with(['success' => 'Updated Successfully.']);
+            } catch (\Exception $e) {
+                return redirect()->back()->with(['error' => $e->getMessage()]);
+            }
+        }else{
+            return redirect()->back()->with(['error' => 'something went wrong try again..']);
+        }
+    }  public function createGroup($attributes)
+    {
+        if(!empty($attributes)){
+            try {
+                if(!empty($attributes['title'])){$slug = SlugService::createSlug($this->group, 'slug', $attributes['title']);}else{$slug='';}
+                $this->group->create([
+                    'parentId'=>($attributes['parentId']) ? : '',
+                    'companyId'=>Auth::guard('web')->user()->id,
+                    'title'=>($attributes['title']) ? : '',
+                    'slug'=>$slug,
+                    'type'=>($attributes['type']) ? : '',
+                    'code'=>($attributes['code']) ? : '',
+                ]);
+                return redirect()->route('groups')->with(['success' => 'Created Successfully.']);
+            } catch (\Exception $e) {
+                return redirect()->back()->with(['error' => $e->getMessage()]);
+            }
+        }else{
+            return redirect()->back()->with(['error' => 'something went wrong try again..']);
+        }
     }
     public function all()
     {
@@ -103,6 +137,19 @@ class GroupRepository
     public function getPosts()
     {
 
+    }
+    public function companyGroups()
+    {
+        return $this->group->where('companyId',Auth::guard('web')->user()->id)->with(array('company'))->get();
+
+    }
+    public function parentGroups()
+    {
+        return $this->group->where('parentId',0)->get();
+    }
+    public function find($id)
+    {
+        return $this->group->whereId($id)->with(array('company'))->first();
     }
     public function array_flatten($array) {
 
@@ -124,14 +171,12 @@ class GroupRepository
     {
 
     }
-    public function find($slug)
-    {
-    }
     public function edit($slug)
     {
     }
     public function delete($id)
     {
-
+        $this->group->whereId($id)->delete();
+        return redirect()->route('groups')->with(['success' => 'Deleted Successfully.']);
     }
 }
