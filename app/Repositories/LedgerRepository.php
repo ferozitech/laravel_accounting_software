@@ -35,6 +35,7 @@ class LedgerRepository
         $this->ledger = $ledger;
         $this->groups = new Group();
     }
+
     public function create($attributes)
     {
         if($attributes){
@@ -60,9 +61,30 @@ class LedgerRepository
             return redirect()->back()->with(['error' => 'Something went wrong....!']);
         }
     }
+
     public function update($attributes)
     {
-
+        if($attributes){
+            if(!empty($attributes['title'])){$slug = SlugService::createSlug($this->ledger, 'slug', $attributes['title']);}else{$slug='';}
+            $userCompany=$this->user->whereId(Auth::guard('web')->user()->id)->select('companyId')->first();
+            try {
+                $this->ledger->whereId($attributes['ledgerId'])->update([
+                    'title'=>($attributes['title']) ? : '',
+                    'groupId'=>($attributes['groupId']) ? : '',
+                    'companyId'=>$userCompany->companyId,
+                    'description'=>($attributes['description']) ? : '',
+                    'ref_number'=>($attributes['ref_number']) ? : '',
+                    'party_ref_number'=>($attributes['party_ref_number']) ? : '',
+                    'opening_balance'=>($attributes['opening_balance']) ? : '',
+                    'account_serial'=>($attributes['account_serial']) ? : '',
+                ]);
+                return redirect()->back()->with(['success' => 'Ledger Updated Successfully..!']);
+            } catch (\Exception $e) {
+                return redirect()->back()->with(['error' => $e->getMessage()]);
+            }
+        }else {
+            return redirect()->back()->with(['error' => 'Something went wrong....!']);
+        }
     }
 
     public function all()
@@ -76,42 +98,63 @@ class LedgerRepository
         return $this->groups->where('parentId',0)->orWhere('companyId',Auth::guard('web')->user()->id)->get();
     }
 
+    public function ledgerdetail($slug)
+    {
+        return $this->ledger->whereSlug($slug)->with('group')->first();
+    }
+
     public function categorySortings($data)
     {
 
     }
+
     public function getPosts()
     {
 
     }
+
     public function array_flatten($array) {
 
     }
+
     public function totalChapter(){
 
     }
+
     public function getPostDetail($slug)
     {
 
     }
+
     public function getCountryName($id)
     {
+
     }
+
     public function posts()
     {
+
     }
+
     public function updateuser($attributes)
     {
 
     }
+
     public function find($slug)
-    {
-    }
-    public function edit($slug)
-    {
-    }
-    public function delete($id)
     {
 
     }
+
+    public function edit($slug)
+    {
+
+    }
+
+    public function delete($id)
+    {
+        $this->ledger->whereId($id)->delete();
+        return redirect()->route('ledgers')->with(['success' => 'Deleted Successfully.']);
+    }
+
 }

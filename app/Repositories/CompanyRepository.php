@@ -68,17 +68,18 @@ class CompanyRepository
                             'name'=>$return->Title.' User',
                             'companyId'=>$return->id,
                             'email'=>$attributes['user']['email'],
+                            'phone'=>($attributes['phone']) ? $attributes['phone'] : '',
                             'password'=>Hash::make($attributes['user']['password']),
                         ]);
                     } catch (\Exception $e) {
                         $this->company->whereId($return->id)->delete();
-                        return redirect()->back()->with(['error' => 'Email already exists in our record try defferent one.']);
+                        return redirect()->back()->with(['error' => $e->getMessage()]);
                     }
                 }else{
                     return redirect()->back()->with(['error' => 'Please fill user information first.!']);
                 }
             } catch (\Exception $e) {
-                return redirect()->back()->with(['error' => 'Email already exists in our record try defferent one.']);
+                return redirect()->back()->with(['error' => $e->getMessage()]);
             }
             if ($return) {
                 return redirect()->back()->with(['success' => 'Company Created Successfully..!']);
@@ -88,6 +89,29 @@ class CompanyRepository
         }else {
             return redirect()->back()->with(['error' => 'Something went wrong....!']);
         }
+    }
+    public function edit($slug)
+    {
+        return $this->company->whereSlug($slug)->with('users')->first();
+    }
+    public function deleteUser($data)
+    {
+        $this->user->whereId($data['userId'])->update(['companyId'=>null,'email'=>null]);
+        $this->user->whereId($data['userId'])->delete();
+        return true;
+    }
+    public function deleteCompany($id)
+    {
+        $company= $this->company->whereId($id)->with('users')->first();
+        if($company){
+            $this->company->whereId($company->id)->update(['email'=>null]);
+            foreach ($company->users as $users){
+                $this->user->whereId($users->id)->update(['companyId'=>null,'email'=>null]);
+                $this->user->whereId($users->id)->delete();
+            }
+        }
+        $company->delete();
+        return redirect()->back()->with(['success' => 'Deleted Successfully..!']);
     }
     public function asign_groups_to_company($companyId){
         $current_date=\Carbon\Carbon::now();
@@ -251,7 +275,75 @@ class CompanyRepository
 
     public function update($attributes)
     {
-
+        if($attributes){
+            if(isset($attributes['logo'])){
+                $logo= (new Helpers())->uploadFile($attributes['logo'],'companyLogos');
+            }else if(!empty($attributes['companylogo'])){
+                $logo=$attributes['companylogo'];
+            }else{
+                $logo="";
+            }
+            try {
+                $return= $this->company->whereId($attributes['companyId'])->update([
+                    'Title'=>($attributes['title']) ? $attributes['title'] : '',
+                    'email'=>($attributes['email']) ? $attributes['email'] : '',
+                    'phone'=>($attributes['phone']) ? $attributes['phone'] : '',
+                    'logo'=>($logo) ? $logo :  '',
+                    'website'=>($attributes['website']) ? $attributes['website'] : '',
+                    'financial_period_from'=>($attributes['financial_period_from']) ? $attributes['financial_period_from'] : '',
+                    'financial_period_to'=>($attributes['financial_period_to']) ? $attributes['financial_period_to'] : '',
+                    'registration_number'=>($attributes['registration_number']) ? $attributes['registration_number'] : '',
+                    'date_of_incorp'=>($attributes['date_of_incorp']) ? $attributes['date_of_incorp'] : '',
+                    'ntn_number'=>($attributes['ntn_number']) ? $attributes['ntn_number'] : '',
+                    'salestax_number'=>($attributes['salestax_number']) ? $attributes['salestax_number'] : '',
+                    'authorised_capital'=>($attributes['authorised_capital']) ? $attributes['authorised_capital'] : '',
+                    'paidup_capital'=>($attributes['paidup_capital']) ? $attributes['paidup_capital'] : '',
+                    'share_price'=>($attributes['share_price']) ? $attributes['share_price'] : '',
+                ]);
+                if(!empty($attributes['user_object'])){
+                    try {
+                        foreach ($attributes['user_object'] as $user){
+                        $result= $this->user->where('companyId',$attributes['companyId'])->where('email',$user['email'])->first();
+                        if(empty($result)){
+                            $email['email'] = $user['email'];
+                            $email['password'] = $this->randomPassword();
+                            $this->user->create([
+                                'name'=>$user['name'],
+                                'companyId'=>$attributes['companyId'],
+                                'phone'=>$user['phone'],
+                                'email'=>$user['email'],
+                                'password'=>Hash::make($email['password']),
+                            ]);
+                            Mail::send('backend.emails.create_company',['data' => $email],function($message) use ($email){
+                            $message->from('developer@dev2.ferozitech.com');
+                            $message->to([$email['email']]);
+                            $message->replyTo('developer@dev2.ferozitech.com', 'Accounts313');
+                            $message->subject('Company Registration Accounts313');
+                        });
+                        }
+                      }
+                    }
+                    catch (\Exception $e) {
+                        return redirect()->back()->with(['error' => $e->getMessage()]);
+                    }
+                }
+                return redirect()->back()->with(['success' => 'Company Updated Successfully..!']);
+            } catch (\Exception $e) {
+                return redirect()->back()->with(['error' => $e->getMessage()]);
+            }
+        }else {
+            return redirect()->back()->with(['error' => 'Something went wrong....!']);
+        }
+    }
+    function randomPassword() {
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $pass = array(); //remember to declare $pass as an array
+        $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+        for ($i = 0; $i < 8; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+        return implode($pass); //turn the array into a string
     }
     public function all()
     {
@@ -286,9 +378,6 @@ class CompanyRepository
 
     }
     public function find($slug)
-    {
-    }
-    public function edit($slug)
     {
     }
     public function delete($id)

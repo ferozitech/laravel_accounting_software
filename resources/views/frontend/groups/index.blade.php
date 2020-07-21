@@ -39,7 +39,6 @@
                         <th scope="col">No</th>
                         <th scope="col">Title</th>
                         <th scope="col">Company</th>
-                        <th scope="col">Type</th>
                         <th scope="col">Code</th>
                         <th scope="col">Created at</th>
                         <th scope="col">Action</th>
@@ -53,7 +52,6 @@
                                 <th>{{ $counter }}</th>
                                 <th>{{ $group->title }}</th>
                                 <th>{{ $group->company->Title }}</th>
-                                <th>{{ $group->type }}</th>
                                 <th>{{ $group->code }}</th>
                                 <td>{{ \Carbon\Carbon::parse($group->created_at)->format('d F, h:i A, Y') }}</td>
                                 <th>

@@ -13,6 +13,7 @@
     <link href="{{ asset('public/assets/backend/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('public/assets/backend/css/metisMenu.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('public/assets/backend/css/app.min.css') }}" rel="stylesheet" type="text/css" />
+    <script src="{{ asset('public/assets/backend/js/jquery.min.js') }}"></script>
     @yield('style')
 </head>
 <body class="@if(Route::currentRouteName() =='dashboard') mm-active active mm-show enlarge-menu @endif">
@@ -24,7 +25,6 @@
         @include('backend.includes.footer')
     </div>
 </div>
-<script src="{{ asset('public/assets/backend/js/jquery.min.js') }}"></script>
 <script src="{{ asset('public/assets/backend/js/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('public/assets/backend/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('public/assets/backend/js/metismenu.min.js') }}"></script>

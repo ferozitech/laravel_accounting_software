@@ -1,5 +1,7 @@
 @extends('backend.layouts.app')
 @section('style')
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
     <div class="container-fluid">
@@ -70,13 +72,13 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="Title">financial period from</label>
-                                    <input type="date" class="form-control" name="financial_period_from" required="" id="financial_period_from" placeholder="financial period from">
+                                    <input type="text" class="form-control datepicker2" name="financial_period_from" required="" id="financial_period_from" placeholder="financial period from">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="Title">financial period to</label>
-                                    <input type="date" class="form-control" name="financial_period_to" required="" id="financial_period_to" placeholder="financial period to">
+                                    <input type="text" class="form-control datepicker2" name="financial_period_to" required="" id="financial_period_to" placeholder="financial period to">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -88,7 +90,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="Title">date of incorpr</label>
-                                    <input type="date" class="form-control" name="date_of_incorp" id="date_of_incorp" placeholder="date of incorpr">
+                                    <input type="text" class="form-control datepicker2" name="date_of_incorp" id="date_of_incorp" placeholder="date of incorpr">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -160,6 +162,11 @@
     @include('flashy::message')
     <script type="application/javascript" src="{{ asset('public/assets/backend/tinymce/tinymce.min.js') }}"></script>
     <script type="text/javascript">
+        $(".datepicker2").datepicker({
+            dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+        });
         tinymce.init({
             selector:'.editor',
             theme: 'modern',

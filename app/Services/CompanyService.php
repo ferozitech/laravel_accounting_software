@@ -28,18 +28,29 @@ class CompanyService
     {
         return $this->company->find($id);
     }
+
     public function edit($slug)
     {
         return $this->company->edit($slug);
     }
 
     public function getDataFieldById($id=Null){
+
         return $this->company->getDataFieldById($id);
+
     }
 
-    public function update($data, $id)
+    public function update($data)
     {
-        return $this->company->update($id, $data);
+        return $this->company->update($data);
+    }
+    public function deleteCompany($id)
+    {
+        return $this->company->deleteCompany($id);
+    }
+    public function deleteUser($data)
+    {
+        return $this->company->deleteUser($data);
     }
 
     public function getStates(Request $request)

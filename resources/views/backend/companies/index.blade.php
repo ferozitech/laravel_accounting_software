@@ -86,10 +86,10 @@
                                             <td>{{ \Carbon\Carbon::parse($company->created_at)->format('d F, h:m A, Y') }}</td>
                                             <td name="buttons">
                                                 <div class=" pull-right">
-                                                    <a href="#">
+                                                    <a href="{{ route('update-company',$company->slug) }}">
                                                         <button id="bEdit" type="button" class="btn btn-sm btn-soft-success btn-circle mr-2"><i class="dripicons-document-edit"></i></button>
                                                     </a>
-                                                    <a onclick="return confirm(' you want to delete?');" href="#">
+                                                    <a onclick="return confirm(' you want to delete?');" href="{{ route('destroyCompany',$company->id) }}">
                                                         <button id="bElim" type="button" class="btn btn-sm btn-soft-danger btn-circle"><i class="dripicons-trash" aria-hidden="true"></i></button>
                                                     </a>
                                                 </div>

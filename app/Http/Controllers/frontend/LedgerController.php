@@ -66,9 +66,11 @@ class LedgerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        //
+        $groups=$this->ledger->parentWithCompanyGroups();
+        $ledgerdetail=$this->ledger->ledgerdetail($slug);
+        return view('frontend.ledger.edit',compact('groups','ledgerdetail'));
     }
 
     /**
@@ -78,9 +80,10 @@ class LedgerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $data = $request->except(['_method', '_token']);
+        return $this->ledger->update($data);
     }
 
     /**
@@ -91,6 +94,6 @@ class LedgerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return $this->ledger->delete($id);
     }
 }

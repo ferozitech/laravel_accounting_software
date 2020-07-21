@@ -63,9 +63,20 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
+        $company= $this->company->edit($slug);
+        return view('backend.companies.edit',compact('company','slug'));
+    }
 
+    public function deleteUser(Request $request){
+        $data = $request->except(['_method', '_token']);
+        $user= $this->company->deleteUser($data);
+        if($user){
+            return response()->json(["reponse"=>'success']);
+        }else{
+            return response()->json(["reponse"=>'failure']);
+        }
     }
 
     /**
@@ -75,9 +86,10 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-
+        $data = $request->except(['_method', '_token']);
+        return $this->company->update($data);
     }
 
     /**
@@ -88,6 +100,6 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
-
+      return $this->company->deleteCompany($id);
     }
 }

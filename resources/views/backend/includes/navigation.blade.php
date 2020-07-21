@@ -39,6 +39,9 @@
                 <ul class="nav">
                     <li class="nav-item"><a class="nav-link" href="{{ route('companies') }}">View</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('create-company') }}">Create</a></li>
+                    @if(isset($slug))
+                        <li class="nav-item"><a class="nav-link" href="{{ route('update-company',$slug) }}">Edit Company</a></li>
+                    @endif
                 </ul>
             </div>
             <div id="Cms" class="main-icon-menu-pane">

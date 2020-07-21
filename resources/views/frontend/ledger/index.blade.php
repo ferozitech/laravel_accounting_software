@@ -12,7 +12,7 @@
                 <button class="btn btn-default mr-2 mb-2">
                     <img src="{{ asset('public/assets/frontend/images/microsoftexcel.png') }}" width="24" height="24"  />
                 </button>
-                <a href="{{ route('create-group') }}">
+                <a href="{{ route('create-ledger') }}">
                     <button class="btn mr-2 mb-2 btn-success" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">Add New</button>
                 </a>
                 <a href="{{ route('user-dashboard') }}">
@@ -57,10 +57,10 @@
                                 <th>{{ $ledger->account_serial }}</th>
                                 <td>{{ \Carbon\Carbon::parse($ledger->created_at)->format('d F, h:i A, Y') }}</td>
                                 <th>
-                                    <a href="#">
+                                    <a href="{{ route('edit-ledger',$ledger->slug) }}">
                                         <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="fa fa-edit"></i></button>
                                     </a>
-                                    <a onclick="return confirm(' you want to delete?');" href="#">
+                                    <a onclick="return confirm(' you want to delete?');" href="{{ route('destroyLedger',$ledger->id) }}">
                                         <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash"></i></button>
                                     </a>
                                 </th>

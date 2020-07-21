@@ -43,14 +43,6 @@
                         <input type="text" name="title" class="form-control" required="">
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlSelect1">Select Type</label>
-                        <select class="form-control" name="type">
-                            <option value="">Select</option>
-                            <option value="credit">Credit</option>
-                            <option value="debit">Debit</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
                         <label for="companyName">Code</label>
                         <input type="text" name="code" class="form-control">
                     </div>

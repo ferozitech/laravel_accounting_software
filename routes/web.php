@@ -33,6 +33,7 @@
     Route::any('getLogOut/{var?}', 'backend\AdminController@getLogOut')->name('getLogOut');
 
     Route::group(['namespace' => 'frontend','middleware' => ['auth:web']],function() {
+
         Route::get('user-dashboard/{var?}', 'UserController@dashboard')->name('user-dashboard');
         Route::get('groups/{var?}', 'GroupController@index')->name('groups');
         Route::get('edit-group/{var?}', 'GroupController@editGroup')->name('edit-group');
@@ -43,6 +44,10 @@
         Route::get('create-ledger/{var?}', 'LedgerController@create')->name('create-ledger');
         Route::get('ledgers/{var?}', 'LedgerController@index')->name('ledgers');
         Route::post('storeLedger/{var?}', 'LedgerController@store')->name('storeLedger');
+        Route::get('edit-ledger/{var?}', 'LedgerController@edit')->name('edit-ledger');
+        Route::post('updateLedger/{var?}', 'LedgerController@update')->name('updateLedger');
+        Route::get('destroyLedger/{var?}', 'LedgerController@destroy')->name('destroyLedger');
+
     });
 
     Route::group(['prefix'=>'admin','namespace' => 'backend','middleware' => ['auth:admin']],function() {
@@ -53,6 +58,10 @@
         Route::get('create-company/', 'CompanyController@create')->name('create-company');
         Route::get('companies/', 'CompanyController@index')->name('companies');
         Route::post('storecompanies/', 'CompanyController@store')->name('storecompanies');
+        Route::get('update-company/{id?}', 'CompanyController@edit')->name('update-company');
+        Route::post('updateCompany/{id?}', 'CompanyController@update')->name('updateCompany');
+        Route::post('deleteUser/{id?}', 'CompanyController@deleteUser')->name('deleteUser');
+        Route::get('destroyCompany/{id?}', 'CompanyController@destroy')->name('destroyCompany');
         Route::post('submitPage/', 'PagesController@store')->name('submitPage');
         Route::post('updatePage/', 'PagesController@update')->name('updatePage');
         Route::any('destroyPost/{id?}', 'PagesController@destroy')->name('destroyPost');

@@ -15,10 +15,12 @@ class LedgerService
     {
         $this->ledger = $ledgerRepository ;
     }
+
     public function index()
     {
         return $this->ledger->all();
     }
+
     public function parentWithCompanyGroups()
     {
         return $this->ledger->parentWithCompanyGroups();
@@ -33,6 +35,10 @@ class LedgerService
     {
         return $this->ledger->find($id);
     }
+    public function ledgerdetail($slug)
+    {
+        return $this->ledger->ledgerdetail($slug);
+    }
     public function edit($slug)
     {
         return $this->ledger->edit($slug);
@@ -42,9 +48,9 @@ class LedgerService
         return $this->ledger->getDataFieldById($id);
     }
 
-    public function update($data, $id)
+    public function update($data)
     {
-        return $this->ledger->update($id, $data);
+        return $this->ledger->update($data);
     }
 
     public function getStates(Request $request)

@@ -110,12 +110,12 @@ class GroupRepository
         if(!empty($attributes)){
             try {
                 if(!empty($attributes['title'])){$slug = SlugService::createSlug($this->group, 'slug', $attributes['title']);}else{$slug='';}
+                $userCompany=$this->user->whereId(Auth::guard('web')->user()->id)->select('companyId')->first();
                 $this->group->create([
                     'parentId'=>($attributes['parentId']) ? : '',
-                    'companyId'=>Auth::guard('web')->user()->id,
+                    'companyId'=>$userCompany->companyId,
                     'title'=>($attributes['title']) ? : '',
                     'slug'=>$slug,
-                    'type'=>($attributes['type']) ? : '',
                     'code'=>($attributes['code']) ? : '',
                 ]);
                 return redirect()->route('groups')->with(['success' => 'Created Successfully.']);
@@ -140,8 +140,8 @@ class GroupRepository
     }
     public function companyGroups()
     {
-        return $this->group->where('companyId',Auth::guard('web')->user()->id)->with(array('company'))->get();
-
+        $userCompany=$this->user->whereId(Auth::guard('web')->user()->id)->select('companyId')->first();
+        return $this->group->where('companyId',$userCompany->companyId)->with(array('company'))->get();
     }
     public function parentGroups()
     {
