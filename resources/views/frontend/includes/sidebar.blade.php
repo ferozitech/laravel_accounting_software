@@ -12,7 +12,7 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="createNew">
                 <a class="dropdown-item" href="#">Create New</a>
                 <a class="dropdown-item" href="#">Company Profile</a>
-                <a class="dropdown-item" href="#">Vouchers</a>
+                <a class="dropdown-item" href="{{ route('create-voucher') }}">Vouchers</a>
                 <a class="dropdown-item" href="{{ route('create-group') }}">Groups</a>
                 <a class="dropdown-item" href="{{ route('create-ledger') }}">Ledgers</a>
             </div>

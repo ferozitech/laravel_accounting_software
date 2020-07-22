@@ -13,7 +13,7 @@
                                 <p>24,2020 : 03:13pm</p>
                             </div>
                             <div class="col">
-                                <a href="#">
+                                <a href="{{ route('create-voucher') }}">
                                     <i class="fas fa-plus-circle"></i>
                                 </a>
                             </div>

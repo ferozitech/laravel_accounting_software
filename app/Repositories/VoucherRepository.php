@@ -9,6 +9,7 @@ use App\Models\City;
 use App\Models\Company;
 use App\Models\Country;
 use App\Models\Group;
+use App\Models\Ledger;
 use App\Models\State;
 use App\Models\User;
 use App\Models\Voucher;
@@ -25,6 +26,7 @@ class VoucherRepository
     protected $country;
     protected $company;
     protected $group;
+    protected $ledgers;
 
     public function __construct(Voucher $voucher)
     {
@@ -33,6 +35,7 @@ class VoucherRepository
         $this->company = new Company();
         $this->group = new Group();
         $this->voucher = $voucher;
+        $this->ledgers = new Ledger();
     }
     public function create($attributes)
     {
@@ -98,6 +101,10 @@ class VoucherRepository
     public function all()
     {
         return $this->company->where('userId',Auth::guard('admin')->user()->id)->with(array('user'=>function($query){$query->select('id','name');}))->get();
+    }
+    public function ledgers(){
+        $userCompany=$this->user->whereId(Auth::guard('web')->user()->id)->select('companyId')->first();
+        return $this->ledgers->where('companyId',$userCompany->companyId)->get();
     }
     public function categorySortings($data)
     {

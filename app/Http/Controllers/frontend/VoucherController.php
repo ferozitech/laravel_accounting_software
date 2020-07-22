@@ -30,7 +30,8 @@ class VoucherController extends Controller
      */
     public function create()
     {
-        //
+        $ledgers=$this->voucher->ledgers();
+        return view('frontend.vouchers.add',compact('ledgers'));
     }
 
     /**

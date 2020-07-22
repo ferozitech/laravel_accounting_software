@@ -47,7 +47,7 @@
         Route::get('edit-ledger/{var?}', 'LedgerController@edit')->name('edit-ledger');
         Route::post('updateLedger/{var?}', 'LedgerController@update')->name('updateLedger');
         Route::get('destroyLedger/{var?}', 'LedgerController@destroy')->name('destroyLedger');
-
+        Route::any('create-voucher/{id?}', 'VoucherController@create')->name('create-voucher');
     });
 
     Route::group(['prefix'=>'admin','namespace' => 'backend','middleware' => ['auth:admin']],function() {

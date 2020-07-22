@@ -130,7 +130,7 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" id="totalUser" value="1">
+                        <input type="hidden" id="totalUser" value="{{ (!empty($company->users)) ? $company->users->count() : 0 }}">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">

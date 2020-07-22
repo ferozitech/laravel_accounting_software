@@ -569,6 +569,37 @@ select{
     border-radius: 0 !important;
     outline: none;
 }
+.create-voucher table tr {
+    height: 40px;
+}
+.create-voucher-footer th td {
+    background: #65cafe !important;
+    position: relative;
+    color: #fff !important;
+    height: 40px;
+}
+.create-voucher .other-inputs {
+    height: 50px !important;
+    padding: 10px;
+}
+.create-voucher input[type='submit'] {
+    width: 130px;
+    height: 50px !important;
+}
+.create-voucher table th {
+    padding: 6px 6px 6px 6px;
+}
+tr.toAppend th {
+    color: #d0d0d0;
+}
+.create-voucher input {
+    height: 40px !important;
+    border-radius: 2px !important;
+}
+.create-voucher select {
+    height: 40px !important;
+    border-radius: 2px !important;
+}
 .footer {
     border-top: 1px solid #e8ebf3;
     bottom: 0;

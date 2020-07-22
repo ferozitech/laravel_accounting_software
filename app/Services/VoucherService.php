@@ -21,6 +21,11 @@ class VoucherService
         return $this->voucher->all();
     }
 
+    public function ledgers()
+    {
+        return $this->voucher->ledgers();
+    }
+
     public function create($attributes)
     {
         return $this->voucher->create($attributes);
